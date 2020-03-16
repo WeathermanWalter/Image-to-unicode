@@ -10,9 +10,9 @@ public class Main {
         try {
             BufferedImage img = ImageIO.read(new File("fatEngineer.jpg"));
             Conversion conversion = new Conversion(img);
-            conversion.createAsciiText();
-            System.out.println(conversion.getOutput());
-            FileInterface.writeFile(conversion.getOutput(),"Test.txt");
+            Conversion.createAsciiText();
+            //System.out.println(conversion.getOutput());
+            FileInterface.writeFile(Conversion.getOutput(),"Test.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }

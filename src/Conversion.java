@@ -12,27 +12,41 @@ public class Conversion {
 
     public static void createAsciiText() {
 
+        //translating the image into a multi-dimensional array with 0s for white, and 1s for black
         BufferedImage tempImg = scale(img, BufferedImage.TYPE_BYTE_BINARY, img.getWidth(), img.getHeight(), 0.5, 0.5);
         int[][] arr = new int[tempImg.getWidth()][tempImg.getHeight()];
         for (int x = 0; x < tempImg.getWidth(); x++){
-            for (int y = 0; y < tempImg.getHeight(); y ++){
+            for (int y = 0; y < tempImg.getHeight(); y++){
                 Color color = new Color(tempImg.getRGB(x, y));
                 arr[x][y] = (color.getRed() / 255);
             }
         }
+        printAsciiText(arr);
 
-        //we have arr that filled with 1s and 0s, represents
+        //we have arr that filled with 1s and 0s
+        /*
+        for (int y = 3; y < tempImg.getHeight() - 2; y += 2) {
+             for (int x = 0; x < tempImg.getWidth() - 3; x += 3) {
+        */
+        int height = tempImg.getHeight() - 3;
+        int width = tempImg.getWidth() - 2;
 
-        for (int y = 3; y < tempImg.getHeight() - 4; y += 3) {
-            for (int x = 0; x < tempImg.getWidth() - 3; x += 2) {
+        for (int y = 0; y < height; y += 3) {
+            for (int x = 0; x < 717; x += 2) {
 
+                System.out.println("width = " + x);
+                System.out.println("height = " + y);
+                System.out.println("WIDTH = " + width);
+                System.out.println("HEIGHT = " + height);
+                System.out.println();
                 boolean[][] snippet = new boolean[][] {
-                        {arr[y+2][x] == 1, arr[y][y+1] == 1},
-                        {arr[y+1][x] == 1, arr[y][x+1] == 1},
-                        {arr[y][x] == 1, arr[y][x+1] == 1}
+                        {arr[x][x] == 1, arr[x][y+1] == 1},
+                        {arr[x+1][y] == 1, arr[x+1][y+1] == 1},
+                        {arr[x+2][y] == 1, arr[x+2][y+1] == 1},
                 };
                 output += appendAscii(snippet);
             }
+            output += "\n";
         }
     }
 
