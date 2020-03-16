@@ -16,4 +16,14 @@ public class FileInterface {
             e.printStackTrace();
         }
     }
+
+    static void writeFile(String data, String outputName) {
+        try {
+            FileWriter fw = new FileWriter(outputName);
+            fw.write(data);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
