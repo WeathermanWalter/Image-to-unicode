@@ -23,23 +23,63 @@ public class Conversion {
 
         //we have arr that filled with 1s and 0s, represents
 
-        for (int x = 0; x <= tempImg.getWidth() - 2; x += 2) {
-            for (int y = 3; y <= tempImg.getHeight() - 3; y += 3) {
+        for (int y = 3; y < tempImg.getHeight() - 4; y += 3) {
+            for (int x = 0; x < tempImg.getWidth() - 3; x += 2) {
+
                 boolean[][] snippet = new boolean[][] {
-                        {arr[x-2][y] == 1, arr[x][y+1] == 1},
-                        {arr[x-1][y] == 1, arr[x][y+1] == 1},
-                        {arr[x][y] == 1, arr[x][y+1] == 1}
+                        {arr[y+2][x] == 1, arr[y][y+1] == 1},
+                        {arr[y+1][x] == 1, arr[y][x+1] == 1},
+                        {arr[y][x] == 1, arr[y][x+1] == 1}
                 };
                 output += appendAscii(snippet);
             }
-            output += "\n";
         }
     }
 
     static String appendAscii(boolean[][] snippet) {
-        //String[] tools = {"-", "/", "|", "\\"}; //U+005C --> \
-        if (sni)
-        return""; //nothing
+
+        /*
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                System.out.print(snippet[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        */
+
+        //for / and \
+        if (snippet[0][1] && snippet[1][0]) {
+            return "/";
+        } else if (snippet[0][0] && snippet[1][1]) { // \
+            return "\\";
+        }
+
+        //for |
+        if (snippet[0][0] && snippet[0][1] && snippet[0][1] ||
+                snippet[1][0] && snippet[1][1] && snippet[1][1]) {
+            return "|";
+        }
+
+        //for =
+        if (snippet[0][0] && snippet[0][1] &&
+            snippet[2][0] && snippet[2][1]) {
+            return "=";
+        }
+
+        //for -
+        for (int i = 0; i < 2; i++) {
+            if (snippet[i][0] && snippet[i][1]) {
+                return "-";
+            }
+        }
+
+        //for _
+        if (snippet[2][0] && snippet[2][1]) {
+            return "_";
+        }
+
+        return" "; //nothing
     }
 
     static void printAsciiText(int[][] arr) {

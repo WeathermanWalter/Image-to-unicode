@@ -11,6 +11,8 @@ public class Main {
             BufferedImage img = ImageIO.read(new File("fatEngineer.jpg"));
             Conversion conversion = new Conversion(img);
             conversion.createAsciiText();
+            System.out.println(conversion.getOutput());
+            FileInterface.writeFile(conversion.getOutput(),"Test.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
